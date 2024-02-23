@@ -3,7 +3,7 @@ import logo from '../../public/assets/icons/logo.svg'
 import Image from "next/image";
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../components/Homepage.module.css'
+import styles from '../components/Fonts.module.css'
 export default function Homepage() {
   return (
     
@@ -26,7 +26,7 @@ export default function Homepage() {
 
         <p className={`text-6xl my-5 ${styles.interBlack}`}> Tic Tac Toe </p>
         <p className={`text-center w-[50%] text-[1.4rem] ${styles.interSemiBold}`}> Dive into the excitement now and experience the timeless joy of this classic game  </p>
-        <Link href="#" className={`mt-5 bg-[#45A6D5] hover:transition-all hover:duration-500 hover:cursor-pointer rounded-full px-24 py-2 font-semibold ${styles.interSemiBold}`}> New Game </Link>
+        <Link href="/components/PlayerCard" className={`mt-5 bg-[#45A6D5] hover:transition-all hover:duration-500 hover:cursor-pointer rounded-full px-24 py-2 font-semibold ${styles.interSemiBold}`}> New Game </Link>
       </main>
     
 
