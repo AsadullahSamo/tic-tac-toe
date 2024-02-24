@@ -1,5 +1,6 @@
 import Homepage from "./components/Homepage";
 import PlayerCard from "./components/PlayerCard";
+import GameBoard from "./components/GameBoard";
 
 export default function Home() {
   
@@ -7,7 +8,8 @@ export default function Home() {
   
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 bg-[#f3f3f3]`} >
       {/* <Homepage /> */}
-      <PlayerCard />
+      {/* <PlayerCard /> */}
+      <GameBoard />
     </main>
 
   );
