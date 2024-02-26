@@ -134,6 +134,21 @@ export default function GameBoard() {
     }
   }, [cpuTurn, gameBoard])
 
+  const handleResetClick = () => {
+    setGameBoard([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    setShowImage1(false)
+    setShowImage2(false)
+    setShowImage3(false)
+    setShowImage4(false)
+    setShowImage5(false)
+    setShowImage6(false)
+    setShowImage7(false)
+    setShowImage8(false)
+    setShowImage9(false)
+    setCPUTurn(false)
+    setPlayer(x)
+  } // end of handleResetClick
+
   return (
     <>
         <Head>
@@ -201,9 +216,9 @@ export default function GameBoard() {
 
         {/* Progress Bar */}
         {cpuTurn &&
-          <div class="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
+          <div className="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
             CPU is thinking...
-            <div class={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-red-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
+            <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-red-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
           </div>
         }
 
@@ -213,6 +228,9 @@ export default function GameBoard() {
           <p className={`text-white text-center mt-5 bg-[#45A6D5] hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> X (CPU) </p>
           <p className={`text-white text-center mt-5 bg-[#FEC104] hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> O (You) </p>
       </div>
+
+      <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] mt-5 bg-[#c5c5c5] rounded-full px-48 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
+
 
      
       
