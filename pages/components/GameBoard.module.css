@@ -1,0 +1,16 @@
+@keyframes progressAnimation {
+    from {
+        width: 0%;
+    } to {
+        width: 100%;
+    }
+}
+
+.progressBar {
+    animation-name: progressAnimation;
+    animation-duration: 2s;
+}
+
+.zeroWidth {
+    width: 0%;
+}

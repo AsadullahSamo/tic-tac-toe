@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styles from '../components/Fonts.module.css'
 import Image from 'next/image'
 import x from '../../public/assets/icons/x.svg'
 import o from '../../public/assets/icons/o.svg'
-import { useState } from 'react'
+import style from '../components/GameBoard.module.css'
 
 export default function GameBoard() {
   const [player, setPlayer] = useState(x)
@@ -70,51 +70,51 @@ export default function GameBoard() {
       setTimeout(() => {
         if(gameBoard[0] === x && gameBoard[1] === x && gameBoard[2] !== o) {
           takeMove(2)
-        } else if(gameBoard[0] === x && gameBoard[2] === x && gameBoard[1] !== o) {
+        } else if(gameBoard[0] === x && gameBoard[2] === x && gameBoard[1] !== o && gameBoard[1] !== x) {
           takeMove(1)
-        } else if(gameBoard[1] === x && gameBoard[2] === x && gameBoard[0] !== o) {
+        } else if(gameBoard[1] === x && gameBoard[2] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
           takeMove(0)
-        } else if(gameBoard[3] === x && gameBoard[4] === x && gameBoard[5] !== o) {
+        } else if(gameBoard[3] === x && gameBoard[4] === x && gameBoard[5] !== o && gameBoard[5] !== x) {
           takeMove(5)
-        } else if(gameBoard[3] === x && gameBoard[5] === x && gameBoard[4] !== o) {
+        } else if(gameBoard[3] === x && gameBoard[5] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
           takeMove(4)
-        } else if(gameBoard[4] === x && gameBoard[5] === x && gameBoard[3] !== o) {
+        } else if(gameBoard[4] === x && gameBoard[5] === x && gameBoard[3] !== o && gameBoard[3] !== x) {
           takeMove(3)
-        } else if(gameBoard[6] === x && gameBoard[7] === x && gameBoard[8] !== o) {
+        } else if(gameBoard[6] === x && gameBoard[7] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
           takeMove(8)
-        } else if(gameBoard[6] === x && gameBoard[8] === x && gameBoard[7] !== o) {
+        } else if(gameBoard[6] === x && gameBoard[8] === x && gameBoard[7] !== o && gameBoard[7] !== x) {
           takeMove(7)
-        } else if(gameBoard[7] === x && gameBoard[8] === x && gameBoard[6] !== o) {
+        } else if(gameBoard[7] === x && gameBoard[8] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
           takeMove(6)
-        } else if(gameBoard[0] === x && gameBoard[4] === x && gameBoard[8] !== o) {
+        } else if(gameBoard[0] === x && gameBoard[4] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
           takeMove(8)
-        } else if(gameBoard[0] === x && gameBoard[8] === x && gameBoard[4] !== o) {
+        } else if(gameBoard[0] === x && gameBoard[8] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
           takeMove(4)
-        } else if(gameBoard[4] === x && gameBoard[8] === x && gameBoard[0] !== o) {
+        } else if(gameBoard[4] === x && gameBoard[8] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
           takeMove(0)
-        } else if(gameBoard[2] === x && gameBoard[4] === x && gameBoard[6] !== o) {
+        } else if(gameBoard[2] === x && gameBoard[4] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
           takeMove(6)
-        } else if(gameBoard[2] === x && gameBoard[6] === x && gameBoard[4] !== o) {
+        } else if(gameBoard[2] === x && gameBoard[6] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
           takeMove(4)
-        } else if(gameBoard[4] === x && gameBoard[6] === x && gameBoard[2] !== o) {
+        } else if(gameBoard[4] === x && gameBoard[6] === x && gameBoard[2] !== o && gameBoard[2] !== x) {
           takeMove(2)
-        } else if(gameBoard[0] === x && gameBoard[3] === x && gameBoard[6] !== o) {
+        } else if(gameBoard[0] === x && gameBoard[3] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
           takeMove(6)
-        } else if(gameBoard[0] === x && gameBoard[6] === x && gameBoard[3] !== o) {
+        } else if(gameBoard[0] === x && gameBoard[6] === x && gameBoard[3] !== o && gameBoard[3] !== x) {
           takeMove(3)
-        } else if(gameBoard[3] === x && gameBoard[6] === x && gameBoard[0] !== o) {
+        } else if(gameBoard[3] === x && gameBoard[6] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
           takeMove(0)
-        } else if(gameBoard[1] === x && gameBoard[4] === x && gameBoard[7] !== o) {
+        } else if(gameBoard[1] === x && gameBoard[4] === x && gameBoard[7] !== o && gameBoard[7] !== x) {
           takeMove(7)
-        } else if(gameBoard[1] === x && gameBoard[7] === x && gameBoard[4] !== o) {
+        } else if(gameBoard[1] === x && gameBoard[7] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
           takeMove(4)
-        } else if(gameBoard[4] === x && gameBoard[7] === x && gameBoard[1] !== o) {
+        } else if(gameBoard[4] === x && gameBoard[7] === x && gameBoard[1] !== o && gameBoard[1] !== x) {
           takeMove(1)
-        } else if(gameBoard[2] === x && gameBoard[5] === x && gameBoard[8] !== o) {
+        } else if(gameBoard[2] === x && gameBoard[5] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
           takeMove(8)
-        } else if(gameBoard[2] === x && gameBoard[8] === x && gameBoard[5] !== o) {
+        } else if(gameBoard[2] === x && gameBoard[8] === x && gameBoard[5] !== o && gameBoard[5] !== x) {
           takeMove(5)
-        } else if(gameBoard[5] === x && gameBoard[8] === x && gameBoard[2] !== o) {
+        } else if(gameBoard[5] === x && gameBoard[8] === x && gameBoard[2] !== o && gameBoard[2] !== x) {
           takeMove(2)
         } else {
           let emptyCells = gameBoard.filter(cell => cell !== x && cell !== o)
@@ -130,7 +130,7 @@ export default function GameBoard() {
           setPlayer(x)
         } // end of if-else ladder
 
-      }, 1000)
+      }, 2000)
     }
   }, [cpuTurn, gameBoard])
 
@@ -159,49 +159,65 @@ export default function GameBoard() {
 
       </div>
       
-      <table className='flex flex-col pt-16 shadow-2xl justify-center items-center w-[34rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl'>
-      <tbody>
-        <tr className='flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0, setShowImage1)}> 
-              { showImage1 && <Image src={gameBoard[0]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1, setShowImage2)}> 
-              { showImage2 && <Image src={gameBoard[1]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2, setShowImage3)}>
-              { showImage3 && <Image src={gameBoard[2]} alt="X" width={50} height={50}/> }
-            </td>
-        </tr>
-        <tr className='flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3, setShowImage4)}> 
-              { showImage4 && <Image src={gameBoard[3]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4, setShowImage5)}> 
-              { showImage5 && <Image src={gameBoard[4]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5, setShowImage6)}>
-              { showImage6 && <Image src={gameBoard[5]} alt="X" width={50} height={50}/> }
-            </td>
-        </tr>
-        <tr className='flex justify-center gap-2'>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6, setShowImage7)}> 
-              { showImage7 && <Image src={gameBoard[6]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7, setShowImage8)}> 
-              { showImage8 && <Image src={gameBoard[7]} alt="X" width={50} height={50}/> }
-            </td>
-            <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8, setShowImage9)}>
-              { showImage9 && <Image src={gameBoard[8]} alt="X" width={50} height={50}/> }
-            </td>
-        </tr>
+      <div className='flex flex-col pt-16 shadow-2xl justify-center items-center w-[34rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl'>
+        <table>
+        <tbody>
+          <tr className='flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0, setShowImage1)}> 
+                { showImage1 && <Image src={gameBoard[0]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1, setShowImage2)}> 
+                { showImage2 && <Image src={gameBoard[1]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2, setShowImage3)}>
+                { showImage3 && <Image src={gameBoard[2]} alt="X" width={50} height={50}/> }
+              </td>
+          </tr>
+          <tr className='flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3, setShowImage4)}> 
+                { showImage4 && <Image src={gameBoard[3]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4, setShowImage5)}> 
+                { showImage5 && <Image src={gameBoard[4]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5, setShowImage6)}>
+                { showImage6 && <Image src={gameBoard[5]} alt="X" width={50} height={50}/> }
+              </td>
+          </tr>
+          <tr className='flex justify-center gap-2'>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6, setShowImage7)}> 
+                { showImage7 && <Image src={gameBoard[6]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7, setShowImage8)}> 
+                { showImage8 && <Image src={gameBoard[7]} alt="X" width={50} height={50}/> }
+              </td>
+              <td className={`flex ${cpuTurn ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8, setShowImage9)}>
+                { showImage9 && <Image src={gameBoard[8]} alt="X" width={50} height={50}/> }
+              </td>
+          </tr>
 
-      </tbody>
-      </table>
+        </tbody>
+        </table>
+
+        {/* Progress Bar */}
+        {cpuTurn &&
+          <div class="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
+            CPU is thinking...
+            <div class={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-red-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
+          </div>
+        }
+
+      </div>
 
       <div className='flex gap-44 mt-2'>
           <p className={`text-white text-center mt-5 bg-[#45A6D5] hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> X (CPU) </p>
           <p className={`text-white text-center mt-5 bg-[#FEC104] hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> O (You) </p>
       </div>
+
+     
+      
+
+      
      
     </>
   )
