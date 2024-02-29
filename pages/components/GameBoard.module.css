@@ -14,3 +14,7 @@
 .zeroWidth {
     width: 0%;
 }
+
+.cancelLine {
+    text-decoration: line-through;
+}
