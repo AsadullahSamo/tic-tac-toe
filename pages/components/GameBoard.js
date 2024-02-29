@@ -86,7 +86,7 @@ export default function GameBoard() {
       newBoard[index] = o;
       return newBoard
     })
-    if(!gameOver) { console.log(`gameOver: ${gameOver}, cpuTurn: ${cpuTurn}, showStrikeThrough: ${showStrikeThrough}`) }
+    if(!gameOver) { console.log(`gameOver: ${gameOver}, cpuTurn: ${cpuTurn}`) }
     showImage(index)
     setCPUTurn(false)
     setPlayer(x)
@@ -205,7 +205,7 @@ export default function GameBoard() {
       takeMove(2)
     }
     //             Random Moves 
-    else if(cpuTurn) {
+    else if(!gameOver && cpuTurn) {
       let emptyCells = gameBoard.filter(cell => cell !== x && cell !== o)
       let randomIndex = Math.floor(Math.random() * emptyCells.length)
       setGameBoard(prevBoard => {
@@ -222,7 +222,10 @@ export default function GameBoard() {
   } // end of handleCPUMove
 
   useEffect(() => {
-    if(cpuTurn) {
+    if(showStrikeThrough) {
+      setCPUTurn(false)
+      return
+    } else if (cpuTurn) {
       handleCPUMove();
     }
 
