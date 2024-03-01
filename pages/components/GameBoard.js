@@ -28,15 +28,11 @@ export default function GameBoard() {
   const handleShowImage = (index, setShowImageX) => {
     setShowImageX(true)
     player === x ? setPlayer(o) : setPlayer(x)
-    player === x && !showStrikeThrough ? setCPUTurn(true) : setCPUTurn(false)
+    player === x ? setCPUTurn(true) : setCPUTurn(false)
     gameBoard[index] = player
   } // end of handleShowImage
 
   const showImage = (index) => {
-    if(showStrikeThrough) {
-      setCPUTurn(false)
-      return
-    }
     switch (index) {
       case 0: setShowImage1(true)
         break
@@ -59,38 +55,34 @@ export default function GameBoard() {
     }
   } // end of showImage
 
-  const takeMove = (index) => {
-    if(showStrikeThrough) {
-      setCPUTurn(false)
-      return
+  const checkWinningMove = (firstIndex, secondIndex, cpuMoveIndex) => {
+    if(gameBoard[firstIndex] === o && gameBoard[secondIndex] === o && gameBoard[cpuMoveIndex] !== x && gameBoard[cpuMoveIndex] !== o) {
+      takeMove(cpuMoveIndex)
+      return true
+    } else {
+      return false
     }
-    setGameBoard(prevBoard => {
-        const newBoard = [...prevBoard];
-        newBoard[index] = o;
-        return newBoard
-      }
-    )
-    if(!gameOver) { console.log(`gameOver: ${gameOver}, cpuTurn: ${cpuTurn}`) }
-    showImage(index)
-    setCPUTurn(false)
-    setPlayer(x)
-  } // end of takeMove
+  } // end of checkWinningMove
 
-  const takeWinningMove = (index) => {
-    if(showStrikeThrough) {
-      setCPUTurn(false)
-      return
+  const checkCounterMove = (firstIndex, secondIndex, cpuMoveIndex) => {
+    if(gameBoard[firstIndex] === x && gameBoard[secondIndex] === x && gameBoard[cpuMoveIndex] !== o && gameBoard[cpuMoveIndex] !== x) {
+      takeMove(cpuMoveIndex)
+      return true
+    } else {
+      return false
     }
+  } // end of checkCounterMove
+
+  const takeMove = (index) => {
     setGameBoard(prevBoard => {
       const newBoard = [...prevBoard];
       newBoard[index] = o;
       return newBoard
     })
-    if(!gameOver) { console.log(`gameOver: ${gameOver}, cpuTurn: ${cpuTurn}`) }
     showImage(index)
     setCPUTurn(false)
     setPlayer(x)
-  } // end of takeWinningMove
+  } // end of takeMove
 
   const showStrikeThroughLine = (width, height, rightPos, bottomPos, borderBottomWidth, borderRightWidth, rotateDeg) => {
     setCPUTurn(false)
@@ -100,174 +92,92 @@ export default function GameBoard() {
   } // end of showStrikeThroughLine
 
   const handleCPUMove = () => {
-    if(showStrikeThrough) {
-      setCPUTurn(false)
-      return
-    }
+    //             Check for Winning Moves
+    if(gameBoard[0] === x && gameBoard[1] === x && gameBoard[2] === x) return 
+    else if(gameBoard[3] === x && gameBoard[4] === x && gameBoard[5] === x) return 
+    else if(gameBoard[6] === x && gameBoard[7] === x && gameBoard[8] === x) return 
+    else if(gameBoard[0] === x && gameBoard[3] === x && gameBoard[6] === x) return 
+    else if(gameBoard[1] === x && gameBoard[4] === x && gameBoard[7] === x) return 
+    else if(gameBoard[2] === x && gameBoard[5] === x && gameBoard[8] === x) return 
+    else if(gameBoard[0] === x && gameBoard[4] === x && gameBoard[8] === x) return 
+    else if(gameBoard[2] === x && gameBoard[4] === x && gameBoard[6] === x) return 
+
+    
+    const checkMoveArray = [ [0, 1, 2], [0, 2, 1], [1, 2, 0], [3, 4, 5], [3, 5, 4], [4, 5, 3], [6, 7, 8], [6, 8, 7], [7, 8, 6],
+                             [0, 3, 6], [0, 6, 3], [3, 6, 0], [1, 4, 7], [1, 7, 4], [4, 7, 1], [2, 5, 8], [2, 8, 5], [5, 8, 2],
+                             [0, 4, 8], [0, 8, 4], [4, 8, 0], [2, 4, 6], [2, 6, 4], [4, 6, 2]
+                           ]
+
     //              Take Winning Moves
-    if(gameBoard[0] === o && gameBoard[1] === o && gameBoard[2] !== x && gameBoard[2] !== o) {
-      takeWinningMove(2)
-    } else if(gameBoard[0] === o && gameBoard[2] === o && gameBoard[1] !== x && gameBoard[1] !== o) {
-      takeWinningMove(1)
-    } else if(gameBoard[1] === o && gameBoard[2] === o && gameBoard[0] !== x && gameBoard[0] !== o) {
-      takeWinningMove(0)
-    } else if(gameBoard[3] === o && gameBoard[4] === o && gameBoard[5] !== x && gameBoard[5] !== o) {
-      takeWinningMove(5)
-    } else if(gameBoard[3] === o && gameBoard[5] === o && gameBoard[4] !== x && gameBoard[4] !== o) {
-      takeWinningMove(4)
-    } else if(gameBoard[4] === o && gameBoard[5] === o && gameBoard[3] !== x && gameBoard[3] !== o) {
-      takeWinningMove(3)
-    } else if(gameBoard[6] === o && gameBoard[7] === o && gameBoard[8] !== x && gameBoard[8] !== o) {
-      takeWinningMove(8)
-    } else if(gameBoard[6] === o && gameBoard[8] === o && gameBoard[7] !== x && gameBoard[7] !== o) {
-      takeWinningMove(7)
-    } else if(gameBoard[7] === o && gameBoard[8] === o && gameBoard[6] !== x && gameBoard[6] !== o) {
-      takeWinningMove(6)
-    } else if(gameBoard[0] === o && gameBoard[4] === o && gameBoard[8] !== x && gameBoard[8] !== o) {
-      takeWinningMove(8)
-    } else if(gameBoard[0] === o && gameBoard[8] === o && gameBoard[4] !== x && gameBoard[4] !== o) {
-      takeWinningMove(4)
-    } else if(gameBoard[4] === o && gameBoard[8] === o && gameBoard[0] !== x && gameBoard[0] !== o) {
-      takeWinningMove(0)
-    } else if(gameBoard[2] === o && gameBoard[4] === o && gameBoard[6] !== x && gameBoard[6] !== o) {
-      takeWinningMove(6)
-    } else if(gameBoard[2] === o && gameBoard[6] === o && gameBoard[4] !== x && gameBoard[4] !== o) {
-      takeWinningMove(4)
-    } else if(gameBoard[4] === o && gameBoard[6] === o && gameBoard[2] !== x && gameBoard[2] !== o) {
-      takeWinningMove(2)
-    } else if(gameBoard[0] === o && gameBoard[3] === o && gameBoard[6] !== x && gameBoard[6] !== o) {
-      takeWinningMove(6)
-    } else if(gameBoard[0] === o && gameBoard[6] === o && gameBoard[3] !== x && gameBoard[3] !== o) {
-      takeWinningMove(3)
-    } else if(gameBoard[3] === o && gameBoard[6] === o && gameBoard[0] !== x && gameBoard[0] !== o) {
-      takeWinningMove(0)
-    } else if(gameBoard[1] === o && gameBoard[4] === o && gameBoard[7] !== x && gameBoard[7] !== o) {
-      takeWinningMove(7)
-    } else if(gameBoard[1] === o && gameBoard[7] === o && gameBoard[4] !== x && gameBoard[4] !== o) {
-      takeWinningMove(4)
-    } else if(gameBoard[4] === o && gameBoard[7] === o && gameBoard[1] !== x && gameBoard[1] !== o) {
-      takeWinningMove(1)
-    } else if(gameBoard[2] === o && gameBoard[5] === o && gameBoard[8] !== x && gameBoard[8] !== o) {
-      takeWinningMove(8)
-    } else if(gameBoard[2] === o && gameBoard[8] === o && gameBoard[5] !== x && gameBoard[5] !== o) {
-      takeWinningMove(5)
-    } else if(gameBoard[5] === o && gameBoard[8] === o && gameBoard[2] !== x && gameBoard[2] !== o) {
-      takeWinningMove(2)
-    }
-    //              Counter Winning Moves
-    else if(gameBoard[0] === x && gameBoard[1] === x && gameBoard[2] !== o && gameBoard[2] !== x) {
-      takeMove(2)
-    } else if(gameBoard[0] === x && gameBoard[2] === x && gameBoard[1] !== o && gameBoard[1] !== x) {
-      takeMove(1)
-    } else if(gameBoard[1] === x && gameBoard[2] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
-      takeMove(0)
-    } else if(gameBoard[3] === x && gameBoard[4] === x && gameBoard[5] !== o && gameBoard[5] !== x) {
-      takeMove(5)
-    } else if(gameBoard[3] === x && gameBoard[5] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
-      takeMove(4)
-    } else if(gameBoard[4] === x && gameBoard[5] === x && gameBoard[3] !== o && gameBoard[3] !== x) {
-      takeMove(3)
-    } else if(gameBoard[6] === x && gameBoard[7] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
-      takeMove(8)
-    } else if(gameBoard[6] === x && gameBoard[8] === x && gameBoard[7] !== o && gameBoard[7] !== x) {
-      takeMove(7)
-    } else if(gameBoard[7] === x && gameBoard[8] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
-      takeMove(6)
-    } else if(gameBoard[0] === x && gameBoard[4] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
-      takeMove(8)
-    } else if(gameBoard[0] === x && gameBoard[8] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
-      takeMove(4)
-    } else if(gameBoard[4] === x && gameBoard[8] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
-      takeMove(0)
-    } else if(gameBoard[2] === x && gameBoard[4] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
-      takeMove(6)
-    } else if(gameBoard[2] === x && gameBoard[6] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
-      takeMove(4)
-    } else if(gameBoard[4] === x && gameBoard[6] === x && gameBoard[2] !== o && gameBoard[2] !== x) {
-      takeMove(2)
-    } else if(gameBoard[0] === x && gameBoard[3] === x && gameBoard[6] !== o && gameBoard[6] !== x) {
-      takeMove(6)
-    } else if(gameBoard[0] === x && gameBoard[6] === x && gameBoard[3] !== o && gameBoard[3] !== x) {
-      takeMove(3)
-    } else if(gameBoard[3] === x && gameBoard[6] === x && gameBoard[0] !== o && gameBoard[0] !== x) {
-      takeMove(0)
-    } else if(gameBoard[1] === x && gameBoard[4] === x && gameBoard[7] !== o && gameBoard[7] !== x) {
-      takeMove(7)
-    } else if(gameBoard[1] === x && gameBoard[7] === x && gameBoard[4] !== o && gameBoard[4] !== x) {
-      takeMove(4)
-    } else if(gameBoard[4] === x && gameBoard[7] === x && gameBoard[1] !== o && gameBoard[1] !== x) {
-      takeMove(1)
-    } else if(gameBoard[2] === x && gameBoard[5] === x && gameBoard[8] !== o && gameBoard[8] !== x) {
-      takeMove(8)
-    } else if(gameBoard[2] === x && gameBoard[8] === x && gameBoard[5] !== o && gameBoard[5] !== x) {
-      takeMove(5)
-    } else if(gameBoard[5] === x && gameBoard[8] === x && gameBoard[2] !== o && gameBoard[2] !== x) {
-      takeMove(2)
-    }
-    //             Random Moves 
-    else if(!gameOver && cpuTurn) {
-      let emptyCells = gameBoard.filter(cell => cell !== x && cell !== o)
-      let randomIndex = Math.floor(Math.random() * emptyCells.length)
-      setGameBoard(prevBoard => {
-          const newBoard = [...prevBoard];
-          newBoard[emptyCells[randomIndex]] = o;
-          return newBoard
-        }
-      )
-      if(!gameOver) { console.log(`gameOver: ${gameOver}, cpuTurn: ${cpuTurn}, showStrikeThrough: ${showStrikeThrough}`) }
-      showImage(emptyCells[randomIndex])
-      setCPUTurn(false)
-      setPlayer(x)
-    } // end of if-else ladder
-  } // end of handleCPUMove
-
-  useEffect(() => {
-    if(showStrikeThrough) {
-      setCPUTurn(false)
-      return
-    } else if (cpuTurn) {
-      handleCPUMove();
+    for(let i=0; i<checkMoveArray.length; i++) {
+      if(checkWinningMove(checkMoveArray[i][0], checkMoveArray[i][1], checkMoveArray[i][2]))
+        return
     }
 
-    if(gameBoard[0] === o && gameBoard[1] === o && gameBoard[2] === o || gameBoard[0]===x && gameBoard[1]===x && gameBoard[2]===x) {
-      showStrikeThroughLine(22, 0, 41.5, 29.9, 4, 0, 0)
-    } else if(gameBoard[3] === o && gameBoard[4] === o && gameBoard[5] === o || gameBoard[3]===x && gameBoard[4]===x && gameBoard[5]===x) {
-      showStrikeThroughLine(22, 0, 41.5, 21.8, 4, 0, 0)
-    } else if(gameBoard[6] === o && gameBoard[7] === o && gameBoard[8] === o || gameBoard[6]===x && gameBoard[7]===x && gameBoard[8]===x) {
-      showStrikeThroughLine(22, 0, 41.5, 13.7, 4, 0, 0)
-    } else if(gameBoard[0] === o && gameBoard[3] === o && gameBoard[6] === o || gameBoard[0]===x && gameBoard[3]===x && gameBoard[6]===x) {
-      showStrikeThroughLine(0, 24.2, 59.2, 10, 0, 4, 0)
-    } else if(gameBoard[1] === o && gameBoard[4] === o && gameBoard[7] === o || gameBoard[1]===x && gameBoard[4]===x && gameBoard[7]===x) {
-      showStrikeThroughLine(0, 24.2, 52.6, 9.5, 0, 4, 0)
-    } else if(gameBoard[2] === o && gameBoard[5] === o && gameBoard[8] === o || gameBoard[2]===x && gameBoard[5]===x && gameBoard[8]===x) {
-      showStrikeThroughLine(0, 24.2, 46, 9.5, 0, 4, 0)
-    } else if(gameBoard[0] === o && gameBoard[4] === o && gameBoard[8] === o || gameBoard[0]===x && gameBoard[4]===x && gameBoard[8]===x) {
-      showStrikeThroughLine(0, 24.2, 52.2, 9.5, 0, 4, -39)
-    } else if(gameBoard[2] === o && gameBoard[4] === o && gameBoard[6] === o || gameBoard[2]===x && gameBoard[4]===x && gameBoard[6]===x) {
-      showStrikeThroughLine(0, 24.2, 52.8, 10, 0, 4, 39)
+    //              Take Counter Moves
+    for(let i=0; i<checkMoveArray.length; i++) {
+      if(checkCounterMove(checkMoveArray[i][0], checkMoveArray[i][1], checkMoveArray[i][2])) 
+        return
     }
-
-  }, [cpuTurn, gameOver]) // end of useEffect
-
-  const handleResetClick = () => {
-    setGameBoard([0, 1, 2, 3, 4, 5, 6, 7, 8])
-    setShowImage1(false)
-    setShowImage2(false)
-    setShowImage3(false)
-    setShowImage4(false)
-    setShowImage5(false)
-    setShowImage6(false)
-    setShowImage7(false)
-    setShowImage8(false)
-    setShowImage9(false)
+    
+    //            Random Move (if no winning or counter moves functions are called)
+    let emptyCells = gameBoard.filter(cell => cell !== x && cell !== o)
+    let randomIndex = Math.floor(Math.random() * emptyCells.length)
+    setGameBoard(prevBoard => {
+      const newBoard = [...prevBoard];
+      newBoard[emptyCells[randomIndex]] = o;
+      return newBoard
+      }
+    )
+        
+    showImage(emptyCells[randomIndex])
     setCPUTurn(false)
     setPlayer(x)
-    setGameOver(false)
-    setShowStrikeThrough(false)
-  } // end of handleResetClick
+  } // end of handleCPUMove
 
-  const constructGAmeBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-  return (
+          useEffect(() => {
+            if (!gameOver && cpuTurn) {
+              handleCPUMove();
+            }
+
+          if(gameBoard[0] === o && gameBoard[1] === o && gameBoard[2] === o || gameBoard[0]===x && gameBoard[1]===x && gameBoard[2]===x) {
+            showStrikeThroughLine(22, 0, 41.5, 29.9, 4, 0, 0)
+          } else if(gameBoard[3] === o && gameBoard[4] === o && gameBoard[5] === o || gameBoard[3]===x && gameBoard[4]===x && gameBoard[5]===x) {
+            showStrikeThroughLine(22, 0, 41.5, 21.8, 4, 0, 0)
+          } else if(gameBoard[6] === o && gameBoard[7] === o && gameBoard[8] === o || gameBoard[6]===x && gameBoard[7]===x && gameBoard[8]===x) {
+            showStrikeThroughLine(22, 0, 41.5, 13.7, 4, 0, 0)
+          } else if(gameBoard[0] === o && gameBoard[3] === o && gameBoard[6] === o || gameBoard[0]===x && gameBoard[3]===x && gameBoard[6]===x) {
+            showStrikeThroughLine(0, 24.2, 59.2, 10, 0, 4, 0)
+          } else if(gameBoard[1] === o && gameBoard[4] === o && gameBoard[7] === o || gameBoard[1]===x && gameBoard[4]===x && gameBoard[7]===x) {
+            showStrikeThroughLine(0, 24.2, 52.6, 9.5, 0, 4, 0)
+          } else if(gameBoard[2] === o && gameBoard[5] === o && gameBoard[8] === o || gameBoard[2]===x && gameBoard[5]===x && gameBoard[8]===x) {
+            showStrikeThroughLine(0, 24.2, 46, 9.5, 0, 4, 0)
+          } else if(gameBoard[0] === o && gameBoard[4] === o && gameBoard[8] === o || gameBoard[0]===x && gameBoard[4]===x && gameBoard[8]===x) {
+            showStrikeThroughLine(0, 24.2, 52.2, 9.5, 0, 4, -39)
+          } else if(gameBoard[2] === o && gameBoard[4] === o && gameBoard[6] === o || gameBoard[2]===x && gameBoard[4]===x && gameBoard[6]===x) {
+            showStrikeThroughLine(0, 24.2, 52.8, 10, 0, 4, 39)
+          }
+
+          }, [cpuTurn, gameOver, showStrikeThrough]) // end of useEffect
+
+          const handleResetClick = () => {
+            setGameBoard([0, 1, 2, 3, 4, 5, 6, 7, 8])
+            setShowImage1(false)
+            setShowImage2(false)
+            setShowImage3(false)
+            setShowImage4(false)
+            setShowImage5(false)
+            setShowImage6(false)
+            setShowImage7(false)
+            setShowImage8(false)
+            setShowImage9(false)
+            setCPUTurn(false)
+            setPlayer(x)
+            setGameOver(false)
+            setShowStrikeThrough(false)
+          } // end of handleResetClick
+
+    return (
     <>
         <Head>
                 <title> Game Board </title>
@@ -298,7 +208,7 @@ export default function GameBoard() {
           {showStrikeThrough && 
             <StrikethroughLine width={strikeThrough.width} height={strikeThrough.height} rightPos={strikeThrough.rightPos} bottomPos={strikeThrough.bottomPos} borderBottomWidth={strikeThrough.borderBottomWidth} borderRightWidth={strikeThrough.borderRightWidth} rotateDeg={strikeThrough.rotateDeg}/>
           }
-         <tr className='border-b-amber-400 flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
+          <tr className='border-b-amber-400 flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
               <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0, setShowImage1)}> 
                 { showImage1 && <Image priority={false} src={gameBoard[0]} alt="X" width={50} height={50}/> }
               </td>
@@ -353,15 +263,9 @@ export default function GameBoard() {
       <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] mt-5 bg-[#c5c5c5] rounded-full px-48 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
 
 
-     
-      
 
-      
-     
+
     </>
-  )
+    )
 
-}
-
-
-
+    }
