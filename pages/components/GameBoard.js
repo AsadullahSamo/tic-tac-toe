@@ -162,7 +162,7 @@ export default function GameBoard() {
         }, 1600)
       }
       checkAndShowStrikeThrough()
-    }, [cpuTurn, gameOver, showStrikeThrough]) // end of useEffect
+    }, [cpuTurn, gameOver, showStrikeThrough, checkAndShowStrikeThrough, handleCPUMove]) // end of useEffect
 
     const handleResetClick = () => {
       setGameBoard([0, 1, 2, 3, 4, 5, 6, 7, 8])
