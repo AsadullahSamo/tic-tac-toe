@@ -162,7 +162,7 @@ export default function GameBoard() {
         }, 1600)
       }
       checkAndShowStrikeThrough()
-    }, [cpuTurn, gameOver, showStrikeThrough, checkAndShowStrikeThrough, handleCPUMove]) // end of useEffect
+    }, [cpuTurn, gameOver, showStrikeThrough]) // end of useEffect
 
     const handleResetClick = () => {
       setGameBoard([0, 1, 2, 3, 4, 5, 6, 7, 8])
@@ -186,33 +186,33 @@ export default function GameBoard() {
       </Head>
 
       {gameOver && !isATie() && (
-          <p className='text-center text-xl font-semibold'> PLAYER {noOfOMoves >= noOfXMoves && showStrikeThrough ? "O" : "X"} WON </p>
+          <p className="text-center text-xl font-semibold"> PLAYER {noOfOMoves >= noOfXMoves && showStrikeThrough ? "O" : "X"} WON </p>
       )} 
       {gameOver && isATie() && (
-          <p className='text-center text-xl font-semibold'> IT'S A TIE </p>
+          <p className="text-center text-xl font-semibold"> GAME TIE </p>
       )}
-      <div className='flex justify-evenly gap-80 mb-5'>
+      <div className="flex justify-evenly gap-80 mb-5">
         <div className={`flex`}>
             <Image priority={false} src={x} alt="X" width={40} height={40}/>
-            <Image priority={false} src={o} alt="O" width={40} height={40} className='-ml-3'/>
+            <Image priority={false} src={o} alt="O" width={40} height={40} className="-ml-3"/>
         </div>
         
-        <div className='flex'>
-            <p className='flex justify-center bg-white items-center w-44 font-bold h-12 rounded-lg '> 
-                <Image priority={false} src={player} alt="X" width={35} height={35} className='mt-2'/> 
-                <span className='font-bold text-xl'> TURN </span> 
+        <div className="flex">
+            <p className="flex justify-center bg-white items-center w-44 font-bold h-12 rounded-lg "> 
+                <Image priority={false} src={player} alt="X" width={35} height={35} className="mt-2"/> 
+                <span className="font-bold text-xl"> TURN </span> 
             </p>
         </div>
 
       </div>
       
-      <div className='flex flex-col pt-16 shadow-2xl justify-center items-center w-[34rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl'>
+      <div className="flex flex-col pt-16 shadow-2xl justify-center items-center w-[34rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl">
         <table suppressHydrationWarning>
         <tbody>
           {showStrikeThrough && 
             <StrikethroughLine width={strikeThrough.width} height={strikeThrough.height} rightPos={strikeThrough.rightPos} bottomPos={strikeThrough.bottomPos} borderBottomWidth={strikeThrough.borderBottomWidth} borderRightWidth={strikeThrough.borderRightWidth} rotateDeg={strikeThrough.rotateDeg}/>
           }
-          <tr className='border-b-amber-400 flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
+          <tr className="border-b-amber-400 flex justify-center gap-2" style={{borderBottom: '1px solid black', width: '22rem'}}>
               <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0)}> 
                 { showImageArray[0] && <Image priority={false} src={gameBoard[0]} alt="X" width={50} height={50}/> }
               </td>
@@ -223,7 +223,7 @@ export default function GameBoard() {
                 { showImageArray[2] && <Image priority={false} src={gameBoard[2]} alt="X" width={50} height={50}/> }
               </td>
           </tr>
-          <tr className='flex justify-center gap-2' style={{borderBottom: '1px solid black', width: '22rem'}}>
+          <tr className="flex justify-center gap-2" style={{borderBottom: '1px solid black', width: '22rem'}}>
               <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3)}> 
                 { showImageArray[3] && <Image priority={false} src={gameBoard[3]} alt="X" width={50} height={50}/> }
               </td>
@@ -234,7 +234,7 @@ export default function GameBoard() {
                 { showImageArray[5] && <Image priority={false} src={gameBoard[5]} alt="X" width={50} height={50}/> }
               </td>
           </tr>
-          <tr className='flex justify-center gap-2'>
+          <tr className="flex justify-center gap-2">
               <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6)}> 
                 { showImageArray[6] && <Image priority={false} src={gameBoard[6]} alt="X" width={50} height={50}/> }
               </td>
@@ -258,7 +258,7 @@ export default function GameBoard() {
 
       </div>
 
-      <div className='flex gap-44 mt-2'>
+      <div className="flex gap-44 mt-2">
           <p className={`text-white text-center mt-5 ${cpuPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> {cpuPlayer === x ? "X" : "O"} (CPU) <br /> {cpuPlayer === x ? noOfXMoves : noOfOMoves} </p>
           <p className={`text-white text-center mt-5 ${humanPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> {humanPlayer === x ? "X" : "O"} (You) <br /> {humanPlayer === x ? noOfXMoves : noOfOMoves} </p> 
       </div>
