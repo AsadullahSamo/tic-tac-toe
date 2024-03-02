@@ -6,10 +6,10 @@ export default function Home() {
   
   return (
   
-    <main className={`flex min-h-screen flex-col items-center justify-between p-24 bg-[#f3f3f3]`} >
-      {/* <Homepage /> */}
+    <main className={`min-h-screen m-auto flex flex-col justify-center items-center p-24 bg-[#f3f3f3]`} >
+      <Homepage />
       {/* <PlayerCard /> */}
-      <GameBoard />
+      {/* <GameBoard /> */}
     </main>
 
   );

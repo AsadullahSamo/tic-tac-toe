@@ -16,7 +16,7 @@ export default function Homepage() {
         <meta charSet="utf-8" />
       </Head>
 
-      <main className='flex flex-col justify-center items-center shadow-2xl w-10/12 h-[40rem] bg-[#d1d1d1] -mt-4 rounded-2xl'>
+      <main className='transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 flex flex-col justify-center items-center shadow-2xl w-10/12 h-[40rem] bg-[#d1d1d1] -mt-4 rounded-2xl'>
         <Image
           src={logo}
           alt="Tic Tac Toe logo"
