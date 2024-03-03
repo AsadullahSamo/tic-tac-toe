@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function StrikethroughLine( {bottomPos, rightPos, width, height, borderBottomWidth, borderRightWidth, rotateDeg} ) {
   return (
-    <tr className={`absolute bottom-[${bottomPos}rem] right-[${rightPos}rem] transform ${rotateDeg === 39 && 'rotate-[39deg]'} ${rotateDeg === -39 && '-rotate-[39deg]'} ${rotateDeg === 0 && 'rotate-[0deg]'}`} style={{ borderBottom:`${borderBottomWidth}px solid red`, borderRight: `${borderRightWidth}px solid red`, width: `${width}rem`, height: `${height}rem`}}>
+    <tr className={`absolute bottom-[32.8rem] right-[${rightPos}rem] transform ${rotateDeg === 39 && 'rotate-[39deg]'} ${rotateDeg === -39 && '-rotate-[39deg]'} ${rotateDeg === 0 && 'rotate-[0deg]'}`} style={{ borderBottom:`${borderBottomWidth}px solid red`, borderRight: `${borderRightWidth}px solid red`, width: `${width}rem`, height: `${height}rem`}}>
         <td colSpan="3"> </td>
     </tr>
   )

@@ -13,7 +13,9 @@ export default function GameBoard() {
     const router = useRouter()
     const encodedData = router.query.player;
     const decodedData = encodedData ? decodeURIComponent(encodedData) : null;
-
+    
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [windowStrikeThrough, setWindowStrikeThrough] = useState({rightPos: 4.9, bottomPos: -9.8, width: 18, borderBottomWidth: 4, height: 0, borderRightWidth: 0, rotateDeg: 0})
     const [humanPlayer, setHumanPlayer] = useState(decodedData === "X" ? x : o)
     const [cpuPlayer, setCPUPlayer] = useState(humanPlayer === x ? o : x)
     const [noOfXMoves, setNoOfXMoves] = useState(0)
@@ -27,21 +29,31 @@ export default function GameBoard() {
     const [gameBoard, setGameBoard] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8])
 
     const calculateNoOfMoves = (player) => {
-      if(player === x) setNoOfXMoves(prev => prev + 1)
+      if(isATie()) return 
+      else if(player === x) setNoOfXMoves(prev => prev + 1)
       else setNoOfOMoves(prev => prev + 1)
     } // end of calculateNoOfMoves
 
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+    
+      window.addEventListener('resize', handleResize);
+    
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, [window.innerWidth]);
+
     const isATie = () => {
-      if(noOfOMoves + noOfXMoves >= 8 && !gameOver) 
-        return true
-      else 
-        return false
+      return noOfOMoves + noOfXMoves >= 9 && !checkIfHumanPlayerWins();
     } // end of isATie
 
     const handleShowImage = (index) => {
       showImage(index)
       humanPlayer === x ? setPlayer(o) : setPlayer(x)
-      player === humanPlayer && !isATie() ? setCPUTurn(true) : setCPUTurn(false)
+      player === humanPlayer && !isATie() && !gameOver ? setCPUTurn(true) : setCPUTurn(false)
       gameBoard[index] = player
       calculateNoOfMoves(player)
     } // end of handleShowImage
@@ -110,6 +122,13 @@ export default function GameBoard() {
       setGameOver(true)
     } // end of showStrikeThroughLine
 
+    const showWindowStrikeThrough = (width, height, rightPos, bottomPos, borderBottomWidth, borderRightWidth, rotateDeg) => {
+      setCPUTurn(false)
+      setWindowStrikeThrough({width, height, rightPos, bottomPos, borderBottomWidth, borderRightWidth, rotateDeg})
+      setShowStrikeThrough(true)
+      setGameOver(true)
+    } // end of showWindowStrikeThrough
+
     const handleCPUMove = () => {
       //             If X wins then return
       if(checkIfHumanPlayerWins()) return
@@ -137,21 +156,21 @@ export default function GameBoard() {
 
     const checkAndShowStrikeThrough = () => {
       if(gameBoard[0] === cpuPlayer && gameBoard[1] === cpuPlayer && gameBoard[2] === cpuPlayer || gameBoard[0]===humanPlayer && gameBoard[1]===humanPlayer && gameBoard[2]===humanPlayer) {
-        showStrikeThroughLine(22, 0, 41.5, 32.9, 4, 0, 0)
+        windowWidth > 500 ? showStrikeThroughLine(22, 0, 41.5, 32.7, 4, 0, 0) : showWindowStrikeThrough(18, 0, 1.1, 10.5, 4, 0, 0)
       } else if(gameBoard[3] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[5] === cpuPlayer || gameBoard[3]===humanPlayer && gameBoard[4]===humanPlayer && gameBoard[5]===humanPlayer) {
-        showStrikeThroughLine(22, 0, 41.5, 24.8, 4, 0, 0)
+        windowWidth > 500 ? showStrikeThroughLine(22, 0, 41.5, 24.7, 4, 0, 0) : showWindowStrikeThrough(18, 0, 1.1, 2.5, 4, 0, 0)
       } else if(gameBoard[6] === cpuPlayer && gameBoard[7] === cpuPlayer && gameBoard[8] === cpuPlayer || gameBoard[6]===humanPlayer && gameBoard[7]===humanPlayer && gameBoard[8]===humanPlayer) {
-        showStrikeThroughLine(22, 0, 41.5, 16.7, 4, 0, 0)
+        windowWidth > 500 ? showStrikeThroughLine(22, 0, 41.5, 16.7, 4, 0, 0) : showWindowStrikeThrough(18, 0, 1.1, -5.6, 4, 0, 0)
       } else if(gameBoard[0] === cpuPlayer && gameBoard[3] === cpuPlayer && gameBoard[6] === cpuPlayer || gameBoard[0]===humanPlayer && gameBoard[3]===humanPlayer && gameBoard[6]===humanPlayer) {
-        showStrikeThroughLine(0, 24.2, 59.2, 10, 0, 4, 0)
+        windowWidth > 500 ? showStrikeThroughLine(0, 24.2, 59.1, 12.5, 0, 4, 0) : showWindowStrikeThrough(0, 24.2, 14.9, -9.8, 0, 4, 0)
       } else if(gameBoard[1] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[7] === cpuPlayer || gameBoard[1]===humanPlayer && gameBoard[4]===humanPlayer && gameBoard[7]===humanPlayer) {
-        showStrikeThroughLine(0, 24.2, 52.6, 9.5, 0, 4, 0)
+        windowWidth > 500 ? showStrikeThroughLine(0, 24.2, 52.6, 12.5, 0, 4, 0) : showWindowStrikeThrough(0, 24.2, 9.9, -9.8, 0, 4, 0)
       } else if(gameBoard[2] === cpuPlayer && gameBoard[5] === cpuPlayer && gameBoard[8] === cpuPlayer || gameBoard[2]===humanPlayer && gameBoard[5]===humanPlayer && gameBoard[8]===humanPlayer) {
-        showStrikeThroughLine(0, 24.2, 46, 9.5, 0, 4, 0)
+        windowWidth > 500 ? showStrikeThroughLine(0, 24.2, 46, 12.5, 0, 4, 0) : showWindowStrikeThrough(0, 24.2, 4.9, -9.8, 0, 4, 0)
       } else if(gameBoard[0] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[8] === cpuPlayer || gameBoard[0]===humanPlayer && gameBoard[4]===humanPlayer && gameBoard[8]===humanPlayer) {
-        showStrikeThroughLine(0, 24.2, 52.2, 9.5, 0, 4, -39)
+        windowWidth > 500 ? showStrikeThroughLine(0, 24.2, 52, 12.1, 0, 4, -39) : showWindowStrikeThrough(0, 24.2, 9.8, -9.8, 0, 4, -32)
       } else if(gameBoard[2] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[6] === cpuPlayer || gameBoard[2]===humanPlayer && gameBoard[4]===humanPlayer && gameBoard[6]===humanPlayer) {
-        showStrikeThroughLine(0, 23.2, 52.6, 10, 0, 4, 39)
+        windowWidth > 500 ? showStrikeThroughLine(0, 23.2, 52.6, 13.2, 0, 4, 39) : showWindowStrikeThrough(0, 24.2, 10, -9.8, 0, 4, 32)
       }
     } // end of checkAndShowStrikeThrough
 
@@ -178,92 +197,94 @@ export default function GameBoard() {
     return (
     <div className="pt-5 flex flex-col justify-center items-center">
       <Head>
-              <title> Game Board </title>
-              <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-              <meta name="author" content="This is the Game board page of the Tic Tac Toe project" />
-              <meta name="description" content="This is Played Card page of Tic Tac Toe Project" />
-              <meta charSet="utf-8" />
+          <title> Game Board </title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <meta name="author" content="This is the Game board page of the Tic Tac Toe project" />
+          <meta name="description" content="This is Played Card page of Tic Tac Toe Project" />
+          <meta charSet="utf-8" />
       </Head>
 
       {gameOver && !isATie() && (
-          <p className="text-center text-xl font-semibold"> PLAYER {noOfOMoves >= noOfXMoves && showStrikeThrough ? "O" : "X"} WON </p>
+        <p className="text-center text-xl font-semibold"> PLAYER {player === x ? "O" : "X"} WON </p>
       )} 
       {gameOver && isATie() && (
-          <p className="text-center text-xl font-semibold"> GAME TIE </p>
+        <p className="text-center text-xl font-semibold"> GAME TIE </p>
       )}
-      <div className="flex justify-evenly gap-80 mb-5">
-        <div className={`flex`}>
-            <Image priority={false} src={x} alt="X" width={40} height={40}/>
-            <Image priority={false} src={o} alt="O" width={40} height={40} className="-ml-3"/>
+      <div className="flex md:justify-start justify-evenly gap-4 md:gap-80 mb-5">
+        <div className={`flex pl-5 md:pl-0`}>
+          <Image priority={false} src={x} alt="X" width={40} height={40}/>
+          <Image priority={false} src={o} alt="O" width={40} height={40} className="-ml-3"/>
         </div>
         
         <div className="flex">
-            <p className="flex justify-center bg-white items-center w-44 font-bold h-12 rounded-lg "> 
-                <Image priority={false} src={player} alt="X" width={35} height={35} className="mt-2"/> 
-                <span className="font-bold text-xl"> TURN </span> 
-            </p>
+          <p className="flex justify-center bg-white items-center w-44 font-bold h-12 rounded-lg "> 
+            <Image priority={false} src={player} alt="X" width={35} height={35} className="mt-2"/> 
+            <span className="font-bold text-xl"> TURN </span> 
+          </p>
         </div>
-
       </div>
       
-      <div className="flex flex-col pt-16 shadow-2xl justify-center items-center w-[34rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl">
-        <table suppressHydrationWarning>
-        <tbody>
-          {showStrikeThrough && 
-            <StrikethroughLine width={strikeThrough.width} height={strikeThrough.height} rightPos={strikeThrough.rightPos} bottomPos={strikeThrough.bottomPos} borderBottomWidth={strikeThrough.borderBottomWidth} borderRightWidth={strikeThrough.borderRightWidth} rotateDeg={strikeThrough.rotateDeg}/>
-          }
-          <tr className="border-b-amber-400 flex justify-center gap-2" style={{borderBottom: '1px solid black', width: '22rem'}}>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0)}> 
-                { showImageArray[0] && <Image priority={false} src={gameBoard[0]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center || gameOver`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1)}> 
-                { showImageArray[1] && <Image priority={false} src={gameBoard[1]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center || gameOver`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2)}>
-                { showImageArray[2] && <Image priority={false} src={gameBoard[2]} alt="X" width={50} height={50}/> }
-              </td>
-          </tr>
-          <tr className="flex justify-center gap-2" style={{borderBottom: '1px solid black', width: '22rem'}}>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3)}> 
-                { showImageArray[3] && <Image priority={false} src={gameBoard[3]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4)}> 
-                { showImageArray[4] && <Image priority={false} src={gameBoard[4]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5)}>
-                { showImageArray[5] && <Image priority={false} src={gameBoard[5]} alt="X" width={50} height={50}/> }
-              </td>
-          </tr>
-          <tr className="flex justify-center gap-2">
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6)}> 
-                { showImageArray[6] && <Image priority={false} src={gameBoard[6]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7)}> 
-                { showImageArray[7] && <Image priority={false} src={gameBoard[7]} alt="X" width={50} height={50}/> }
-              </td>
-              <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center w-24 h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8)}>
-                { showImageArray[8] && <Image priority={false} src={gameBoard[8]} alt="X" width={50} height={50}/> }
-              </td>
-          </tr> 
-        </tbody>
-        </table>
+      <div className="flex flex-col pt-16 shadow-2xl justify-center items-center md:w-[34rem] w-[20rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl">
+      <table suppressHydrationWarning>
+      <tbody>
 
-        {/* Progress Bar */}
-        {cpuTurn && !isATie() &&
-          <div className="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
-            CPU is thinking...
-            <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-green-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
-          </div>
+        { showStrikeThrough &&
+          <tr style={{transform: `${windowWidth > 500 ? strikeThrough.rotateDeg : windowStrikeThrough.rotateDeg}deg`, position: "absolute", bottom: `${window.innerWidth < 500 ? windowStrikeThrough.bottomPos : strikeThrough.bottomPos}rem`, right: `${window.innerWidth < 500 ? windowStrikeThrough.rightPos : strikeThrough.rightPos}rem`, borderBottom:`${windowWidth < 500 ? windowStrikeThrough.borderBottomWidth : strikeThrough.borderBottomWidth}px solid red`, borderRight: `${windowWidth < 500 ? windowStrikeThrough.borderRightWidth : strikeThrough.borderRightWidth}px solid red`, width: `${windowWidth < 500 ? windowStrikeThrough.width : windowWidth > 500 ? strikeThrough.width : 18}rem`, height: `${windowWidth < 500 ? windowStrikeThrough.height : strikeThrough.height}rem`}}>
+            <td colSpan="3"> </td>
+          </tr>
         }
+        <tr className="flex justify-center gap-2 md:w-[22rem] w-[16rem]" style={{borderBottom: '1px solid black'}}>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0)}> 
+          { showImageArray[0] && <Image priority={false} src={gameBoard[0]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1)}> 
+          { showImageArray[1] && <Image priority={false} src={gameBoard[1]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2)}>
+          { showImageArray[2] && <Image priority={false} src={gameBoard[2]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+        </tr>
+        <tr className="flex justify-center gap-2 md:w-[22rem] w-[16rem]" style={{borderBottom: '1px solid black'}}>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3)}> 
+          { showImageArray[3] && <Image priority={false} src={gameBoard[3]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4)}> 
+          { showImageArray[4] && <Image priority={false} src={gameBoard[4]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5)}>
+          { showImageArray[5] && <Image priority={false} src={gameBoard[5]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+        </tr>
+        <tr className="flex justify-center gap-2">
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6)}> 
+          { showImageArray[6] && <Image priority={false} src={gameBoard[6]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7)}> 
+          { showImageArray[7] && <Image priority={false} src={gameBoard[7]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8)}>
+          { showImageArray[8] && <Image priority={false} src={gameBoard[8]} alt="X" className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
+          </td>
+        </tr> 
+      </tbody>
+      </table>
+
+      {/* Progress Bar */}
+      {cpuTurn && !isATie() &&
+        <div className="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
+        CPU is thinking...
+        <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-green-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
+        </div>
+      }
 
       </div>
 
-      <div className="flex gap-44 mt-2">
-          <p className={`text-white text-center mt-5 ${cpuPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> {cpuPlayer === x ? "X" : "O"} (CPU) <br /> {cpuPlayer === x ? noOfXMoves : noOfOMoves} </p>
-          <p className={`text-white text-center mt-5 ${humanPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full px-12 py-5 font-semibold ${styles.interSemiBold}`}> {humanPlayer === x ? "X" : "O"} (You) <br /> {humanPlayer === x ? noOfXMoves : noOfOMoves} </p> 
+      <div className="flex md:gap-44 gap-4 mt-2">
+        <p className={`text-white text-center mt-5 ${cpuPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full md:px-12 md:py-5 py-[6px] px-5 font-semibold ${styles.interSemiBold}`}> {cpuPlayer === x ? "X" : "O"} (CPU) <br /> {cpuPlayer === x ? noOfXMoves : noOfOMoves} </p>
+        <p className={`text-white text-center mt-5 ${humanPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full md:px-12 md:py-5 py-[6px] px-5 font-semibold ${styles.interSemiBold}`}> {humanPlayer === x ? "X" : "O"} (You) <br /> {humanPlayer === x ? noOfXMoves : noOfOMoves} </p> 
       </div>
 
-      <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] mt-5 bg-[#c5c5c5] rounded-full px-48 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
+      <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] my-5 bg-[#c5c5c5] rounded-full md:px-48 px-24 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
 
     </div>
     )
