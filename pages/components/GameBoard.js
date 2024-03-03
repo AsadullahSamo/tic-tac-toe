@@ -7,14 +7,16 @@ import o from '../../public/assets/icons/o.svg'
 import style from '../components/GameBoard.module.css'
 import StrikethroughLine from './StrikethroughLine'
 import { useRouter } from 'next/router'
+import { useWindowSize } from '@uidotdev/usehooks'
 
 export default function GameBoard() {
     
+    const size = useWindowSize()
     const router = useRouter()
     const encodedData = router.query.player;
     const decodedData = encodedData ? decodeURIComponent(encodedData) : null;
     
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [windowWidth, setWindowWidth] = useState(size.width)
     const [windowStrikeThrough, setWindowStrikeThrough] = useState({rightPos: 4.9, bottomPos: -9.8, width: 18, borderBottomWidth: 4, height: 0, borderRightWidth: 0, rotateDeg: 0})
     const [humanPlayer, setHumanPlayer] = useState(decodedData === "X" ? x : o)
     const [cpuPlayer, setCPUPlayer] = useState(humanPlayer === x ? o : x)
@@ -36,7 +38,7 @@ export default function GameBoard() {
 
     useEffect(() => {
       const handleResize = () => {
-        setWindowWidth(window.innerWidth);
+        setWindowWidth(size.width);
       };
     
       window.addEventListener('resize', handleResize);
@@ -44,7 +46,7 @@ export default function GameBoard() {
       return () => {
         window.removeEventListener('resize', handleResize);
       };
-    }, [window.innerWidth]);
+    }, [size.width]);
 
     const isATie = () => {
       return noOfOMoves + noOfXMoves >= 9 && !checkIfHumanPlayerWins();
