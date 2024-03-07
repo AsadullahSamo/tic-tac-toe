@@ -25,17 +25,17 @@ export default function PlayerCard() {
 			</Head>
 
       <h1 className={`text-center text-xl ${styles.interSemiBold} -mt-8 mb-8`}> Pick player 1st mark </h1>
-      <main className='transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2  flex flex-col pt-16 items-center shadow-2xl w-10/12 h-[30rem] bg-[#fff] -mt-4 rounded-2xl'>
+      <main className='transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2  flex flex-col pt-16 items-center shadow-2xl w-[100%] md:w-10/12 h-[30rem] bg-[#fff] -mt-4 rounded-2xl'>
        
       <div className='flex justify-center gap-10'>
         <div className='flex flex-col justify-center gap-1'>
-          <Image src={x} alt="X" width={200} height={200}/>
-          <input type="radio" value="x" className='ml-[5.5rem] w-6 h-6' checked={selectedValue === 'x'} onChange={handleRadioChange}/>
+          <Image src={x} alt="X" className='w-12 h-12 md:w-[10rem] md:h-[10rem]'/>
+          <input type="radio" value="x" className='ml-[1rem] md:ml-[4rem] w-4 h-4 md:w-6 md:h-6' checked={selectedValue === 'x'} onChange={handleRadioChange}/>
         </div>
 
         <div className='flex flex-col justify-center gap-1'>
-          <Image src={o} alt="X" width={200} height={200}/>
-          <input type="radio" value="o" className='ml-[5.5rem] w-6 h-6' checked={selectedValue === 'o'} onChange={handleRadioChange}/>
+          <Image src={o} alt="X" className='w-12 h-12 md:w-[10rem] md:h-[10rem]'/>
+          <input type="radio" value="o" className='ml-[1.1rem] md:ml-[4.3rem] w-4 h-4 md:w-6 md:h-6' checked={selectedValue === 'o'} onChange={handleRadioChange}/>
         </div>
       </div>
 
