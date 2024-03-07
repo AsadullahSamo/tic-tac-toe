@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Head from 'next/head'
 import styles from '../components/Fonts.module.css'
 import Image from 'next/image'
@@ -265,7 +266,10 @@ export default function GameBoard() {
         <p className={`text-white text-center mt-5 ${humanPlayer === x ? 'bg-[#45A6D5]' : 'bg-[#FEC104]'} hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#FEC104] rounded-full md:px-12 md:py-5 py-[6px] px-5 font-semibold ${styles.interSemiBold}`}> {humanPlayer === x ? "X" : "O"} (You) <br /> {humanPlayer === x ? noOfXMoves : noOfOMoves} </p> 
       </div>
 
-      <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] my-5 bg-[#c5c5c5] rounded-full md:px-48 px-24 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
+      <div className='flex justify-center md:flex-row md:gap-10 flex-col'>
+        <button onClick={handleResetClick} className={`text-white hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#c5c5c5] my-5 bg-[#c5c5c5] rounded-full px-24 py-2 font-semibold ${styles.interSemiBold}`}> Reset Game </button>
+        <Link href="/components/PlayerCard" className={`mt-[-2px] md:my-5 px-24 py-2 font-semibold ${styles.interSemiBold} text-white mt-5 bg-[#45A6D5] hover:transition-all hover:duration-500 hover:cursor-pointer hover:text-black hover:bg-white border-2 border-solid hover:border-[#45a6d5] rounded-full px-24 py-2 font-semibold ${styles.interSemiBold}`}> New Game </Link>        
+      </div>
 
     </div>
     )
