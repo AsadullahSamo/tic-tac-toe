@@ -251,7 +251,7 @@ export default function GameBoard() {
       </table>
 
       {/* Progress Bar */}
-      {cpuTurn && !isATie() && !gameOver &&
+      {cpuTurn && !gameOver &&
         <div className="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
         CPU is thinking...
         <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-green-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
