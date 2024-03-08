@@ -215,36 +215,36 @@ export default function GameBoard() {
         </tr>
 
         <tr className="flex justify-center gap-2 md:w-[22rem] w-[16rem]" style={{borderBottom: '1px solid black'}}>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[0] !== 0 ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(0)}> 
             { showImageArray[0] && <Image loading="lazy" src={gameBoard[0]} alt={gameBoard[0] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[1] !== 1  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(1)}> 
             { showImageArray[1] && <Image loading="lazy" src={gameBoard[1]} alt={gameBoard[1] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2)}>
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[2] !== 2  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center || gameOver`} style={{height: '8rem'}} onClick={() => !cpuTurn && handleShowImage(2)}>
             { showImageArray[2] && <Image loading="lazy" src={gameBoard[2]} alt={gameBoard[2] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
         </tr>
         <tr className="flex justify-center gap-2 md:w-[22rem] w-[16rem]" style={{borderBottom: '1px solid black'}}>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[3] !== 3  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(3)}> 
             { showImageArray[3] && <Image loading="lazy" src={gameBoard[3]} alt={gameBoard[3] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[4] !== 4  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(4)}> 
             { showImageArray[4] && <Image loading="lazy" src={gameBoard[4]} alt={gameBoard[4] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5)}>
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[5] !== 5  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(5)}>
             { showImageArray[5] && <Image loading="lazy" src={gameBoard[5]} alt={gameBoard[5] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
           
         </tr>
         <tr className="flex justify-center gap-2">
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[6] !== 6  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(6)}> 
             { showImageArray[6] && <Image loading="lazy" src={gameBoard[6]} alt={gameBoard[6] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7)}> 
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[7] !== 7  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{borderRight: '1px solid black', height: '8rem'}} onClick={() => handleShowImage(7)}> 
             { showImageArray[7] && <Image loading="lazy" src={gameBoard[7]} alt={gameBoard[7] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
-          <td className={`flex ${cpuTurn || gameOver ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8)}>
+          <td className={`flex ${cpuTurn || gameOver || gameBoard[8] !== 8  ? 'pointer-events-none' : 'pointer-events-auto'} justify-center items-center md:w-24 w-[4.5rem] h-24 bg-white text-center`} style={{height: '8rem'}} onClick={() => handleShowImage(8)}>
             { showImageArray[8] && <Image loading="lazy" src={gameBoard[8]} alt={gameBoard[8] === x ? "X" : "O"} className='md:w-[50px] md:h-[50px] w-[35px] h-[35px]'/> }
           </td>
         </tr> 
