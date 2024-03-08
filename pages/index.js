@@ -4,7 +4,6 @@ export default function Home() {
   
   return (
     <>
-      <bds></bds>
       <Head>
         <title> Homepage </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

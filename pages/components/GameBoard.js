@@ -182,19 +182,19 @@ export default function GameBoard() {
         </div>
       </div>
       
-      <div className="flex flex-col pt-16 shadow-2xl justify-center items-center md:w-[34rem] w-[20rem] h-[32rem] bg-[#fff] -mt-4 rounded-2xl">
+      <div className="flex flex-col pt-16 shadow-2xl justify-center items-center md:w-[34rem] w-[20rem] h-[35.5rem] bg-[#fff] -mt-4 rounded-2xl">
       <table suppressHydrationWarning>
       <tbody>
 
         <tr>
           { ((gameBoard[0] === cpuPlayer && gameBoard[1] === cpuPlayer && gameBoard[2] === cpuPlayer) || (gameBoard[0] === humanPlayer && gameBoard[1] === humanPlayer && gameBoard[2] === humanPlayer)) &&
-            <Image loading="lazy" className={`relative top-[4.6rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
+            <Image loading="lazy" className={`relative top-[4.6rem] md:top-[4.7rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
           }
           { ((gameBoard[3] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[5] === cpuPlayer) || (gameBoard[3] === humanPlayer && gameBoard[4] === humanPlayer && gameBoard[5] === humanPlayer)) &&
-            <Image loading="lazy" className={`relative top-[12.6rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
+            <Image loading="lazy" className={`relative md:top-[12.7rem] top-[12.6rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
           }
           { ((gameBoard[6] === cpuPlayer && gameBoard[7] === cpuPlayer && gameBoard[8] === cpuPlayer) || (gameBoard[6] === humanPlayer && gameBoard[7] === humanPlayer && gameBoard[8] === humanPlayer)) &&
-            <Image loading="lazy" className={`relative top-[20.6rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
+            <Image loading="lazy" className={`relative top-[20.6rem] md:top-[20.8rem] md:w-[22rem] w-[16rem]`} src={hl} alt="Winning Line"/>          
           }
 
           { ((gameBoard[0] === cpuPlayer && gameBoard[3] === cpuPlayer && gameBoard[6] === cpuPlayer) || (gameBoard[0] === humanPlayer && gameBoard[3] === humanPlayer && gameBoard[6] === humanPlayer)) &&
@@ -207,10 +207,10 @@ export default function GameBoard() {
             <Image loading="lazy" className={`absolute top-[22.6rem] md:ml-[6.5rem] ml-[1rem] md:w-[22rem] w-[24rem] rotate-90`} src={hl} alt="Winning Line"/>  
           }
           { ((gameBoard[0] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[8] === cpuPlayer) || (gameBoard[0] === humanPlayer && gameBoard[4] === humanPlayer && gameBoard[8] === humanPlayer)) &&
-            <Image loading="lazy" className={`absolute top-[23rem] md:ml-[-1.7rem] ml-[-3.8rem] md:w-[26rem] w-[24rem] rotate-[58deg] md:rotate-[51deg]`} src={hl} alt="Winning Line"/>          
+            <Image loading="lazy" className={`absolute top-[23rem] md:ml-[-1.5rem] ml-[-3.8rem] md:w-[26rem] w-[24rem] rotate-[58deg] md:rotate-[51deg]`} src={hl} alt="Winning Line"/>          
           }
           { ((gameBoard[2] === cpuPlayer && gameBoard[4] === cpuPlayer && gameBoard[6] === cpuPlayer) || (gameBoard[2] === humanPlayer && gameBoard[4] === humanPlayer && gameBoard[6] === humanPlayer)) &&
-            <Image loading="lazy" className={`absolute top-[22.5rem] md:ml-[-2rem] ml-[-3.7rem] md:w-[26rem] w-[24rem] rotate-[-58deg] md:rotate-[-51deg]`} src={hl} alt="Winning Line"/>          
+            <Image loading="lazy" className={`absolute top-[22.5rem] md:ml-[-2rem] ml-[-4rem] md:w-[26rem] w-[24rem] rotate-[-58deg] md:rotate-[-51deg]`} src={hl} alt="Winning Line"/>          
           }
         </tr>
 
@@ -251,13 +251,13 @@ export default function GameBoard() {
       </tbody>
       </table>
 
-      {/* Progress Bar */}
-      {cpuTurn && !gameOver && !checkIfPlayerWins(cpuPlayer) && !isATie() &&
-        <div className="my-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full">
+      
+      {/* {cpuTurn && !gameOver && !checkIfPlayerWins(cpuPlayer) && !isATie() && */}
+        <div className={`${cpuTurn && !gameOver && !checkIfPlayerWins(cpuPlayer) && !isATie() ? 'visible' : 'invisible'} mt-10 w-[90%] bg-blue-600 rounded-ful text-center text-white rounded-full`}>
           CPU is thinking...
-        <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-green-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
+          <div className={`h-[25px] -mt-6 ${cpuTurn ? style.progressBar : style.zeroWidth} bg-green-600 text-xs font-medium text-blue-100 text-center py-1 leading-none rounded-full`}></div>
         </div>
-      }
+      {/* } */}
 
       </div>
 
