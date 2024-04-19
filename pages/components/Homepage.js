@@ -12,7 +12,7 @@ export default function Homepage() {
         <title> Home Page </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="author" content="Asadullah Samo" />
-        <meta name="description" content="This page is homepage of Quiz project" />
+        <meta name="description" content="This page is homepage of Tic Tac Toe project" />
         <meta charSet="utf-8" />
       </Head>
 
