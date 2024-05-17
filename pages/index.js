@@ -10,6 +10,7 @@ export default function Home() {
         <meta name="author" content="Asadullah Samo" />
         <meta name="description" content="This page is homepage and entry point of Tic Tac Toe app" />
         <meta charSet="utf-8" />
+        <link rel="icon" href="/assets/icons/logo.svg" type="image/icon" />
       </Head>
 
       <main className={`min-h-screen m-auto flex flex-col justify-center items-center p-24 bg-[#f3f3f3]`} >
