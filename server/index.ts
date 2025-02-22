@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
   const PORT = 8000;
   server.listen(PORT, undefined, () => {
-    log(`Server running at http://localhost:${PORT}`);
+    log(`App running at http://localhost:${PORT}`);
   });
 })().catch(err => {
   log(`Failed to start server: ${err}`);
