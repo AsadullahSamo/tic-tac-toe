@@ -12,10 +12,13 @@ import type { GameStats as GameStatsType } from "@shared/schema";
 import type { Board } from "@/lib/gameLogic";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export type Difficulty = "easy" | "medium" | "hard";
+export type GameMode = "ai" | "pvp";
 
 export default function Game() {
+  const [gameMode, setGameMode] = useState<GameMode>("ai");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [soundEnabled, setSoundEnabled] = useState(isSoundEnabled());
   const [playerColor, setPlayerColor] = useState("#00FF88");
@@ -39,13 +42,11 @@ export default function Game() {
 
   const handleGameEnd = (result: "win" | "loss" | "draw") => {
     if (!stats) return;
-
     const newStats = {
       playerWins: stats.playerWins + (result === "win" ? 1 : 0),
       aiWins: stats.aiWins + (result === "loss" ? 1 : 0),
       draws: stats.draws + (result === "draw" ? 1 : 0),
     };
-
     updateStatsMutation.mutate(newStats);
   };
 
@@ -70,24 +71,38 @@ export default function Game() {
   };
 
   const handleUndo = () => {
-    if (currentMove > 0) {
-      setCurrentMove(currentMove - 1); // Go back one move
+    if (gameMode === "ai") {
+      // In AI mode, undo both the player's move and the AI's move (if available)
+      if (currentMove > 1) {
+        setCurrentMove(currentMove - 2);
+      }
+    } else {
+      // In PvP mode, undo one move at a time
+      if (currentMove > 0) {
+        setCurrentMove(currentMove - 1);
+      }
     }
   };
 
-  const canUndo = currentMove > 0;
+  const canUndo = gameMode === "ai" ? currentMove > 1 : currentMove > 0;
 
   return (
     <div className="min-h-screen bg-background text-foreground p-4">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Tic Tac Toe AI</h1>
+          <h1 className="text-3xl font-bold">Tic Tac Toe</h1>
           <ThemeToggle />
         </div>
-
+        {/* Display current mode text */}
+        <div className="mb-4 text-center">
+          <p className="text-lg font-medium">
+            Current Mode:{" "}
+            {gameMode === "ai" ? "Player vs AI" : "Player vs Player"}
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-4">
-            <div className="flex justify-end">
+            <div className="flex justify-between items-center">
               <Button
                 variant="outline"
                 size="sm"
@@ -98,9 +113,25 @@ export default function Game() {
                 <RotateCcw className="h-4 w-4" />
                 Undo Move
               </Button>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Mode:</span>
+                <RadioGroup
+                  value={gameMode}
+                  onValueChange={(value) => setGameMode(value as GameMode)}
+                  className="flex items-center gap-4"
+                >
+                  <RadioGroupItem value="ai">
+                    Player vs AI
+                  </RadioGroupItem>
+                  <RadioGroupItem value="pvp">
+                    Player vs Player
+                  </RadioGroupItem>
+                </RadioGroup>
+              </div>
             </div>
-            <GameBoard 
-              difficulty={difficulty} 
+            <GameBoard
+              gameMode={gameMode}
+              difficulty={difficulty}
               onGameEnd={handleGameEnd}
               playerColor={playerColor}
               aiColor={aiColor}
@@ -110,11 +141,10 @@ export default function Game() {
           </div>
 
           <div className="space-y-6">
-            <DifficultySelect 
-              value={difficulty} 
-              onChange={setDifficulty} 
-            />
-            <GameSettings 
+            {gameMode === "ai" && (
+              <DifficultySelect value={difficulty} onChange={setDifficulty} />
+            )}
+            <GameSettings
               isSoundEnabled={soundEnabled}
               onToggleSound={handleToggleSound}
               playerColor={playerColor}

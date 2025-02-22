@@ -30,6 +30,7 @@ export default function DifficultySelect({ value, onChange }: Props) {
     <div className="space-y-2">
       <label className="text-sm font-medium">AI Difficulty</label>
       <Select
+
         defaultValue={value}
         onValueChange={(val) => onChange(val as Difficulty)}
       >
@@ -51,9 +52,8 @@ export default function DifficultySelect({ value, onChange }: Props) {
           </SelectItem>
           <SelectItem value="hard">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#FF6B6B' }} >
-                <span>Hard</span>
-              </div>
+              <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#FF6B6B' }} />
+                <span className="ml-6" style={{ color: '#333' }}>Hard</span>
             </div>
           </SelectItem>
         </SelectContent>
